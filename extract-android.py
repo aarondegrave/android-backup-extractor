@@ -23,7 +23,7 @@ with open(args.file, 'rb') as f:
                 datatest = json.dumps(str(data))
                 f.write(datatest + "\n")
             with open('file.tar', 'a') as c:
-                c.write(str(data))
+                c.write(data.decode('utf-8'))
             print(data)
         except AttributeError as e:
             continue
