@@ -20,8 +20,10 @@ with open(args.file, 'rb') as f:
             a = tar.extractfile(member)
             data = a.read()
             with open('data.json', 'a') as f:
-                datatest = json.dumps(str(data))
+                datatest = json.dumps(data.decode('utf-8'))
                 f.write(datatest + "\n")
+            with open('file.tar', 'a') as c:
+                c.write(data.decode('utf-8'))
             print(data)
         except AttributeError as e:
             continue
