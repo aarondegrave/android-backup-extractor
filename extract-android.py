@@ -10,8 +10,13 @@ parser.add_argument("file", help = "Point me to the file", type=str)
 args = parser.parse_args()
 
 with open(args.file, 'rb') as f:
-    f.seek(24)
-    data= f.read()
+    b = 0
+    for data in f:
+        n= 4096
+        b = b + 1
+        f.seek(24)
+        data= f.read(n*b)
+        continue
     stream = zlib.decompress(data)
     tar = tarfile.open(fileobj=io.BytesIO(stream))
     members = tar.getmembers()
@@ -19,11 +24,8 @@ with open(args.file, 'rb') as f:
         try:
             a = tar.extractfile(member)
             data = a.read()
-            with open('data.json', 'a') as f:
-                datatest = json.dumps(str(data))
-                f.write(datatest + "\n")
-            with open('file.tar', 'a') as c:
-                c.write(data.decode('utf-8'))
+            with open('file.tar', 'ab') as c:
+                c.write(data)
             print(data)
         except AttributeError as e:
             continue
