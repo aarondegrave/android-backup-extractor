@@ -2,8 +2,6 @@ __Author__ = "Aaron DeGrave"
 import zlib
 import tarfile
 import argparse
-import io
-import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("file", help = "Point me to the file", type=str)
