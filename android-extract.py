@@ -10,13 +10,10 @@ args = parser.parse_args()
 with open(args.file, 'rb') as f:
     b = 0
     for data in f:
-        chunkdata = 41943040
-        b = b + 1
         f.seek(24)
-        data= f.read(chunkdata*b)
+        data= f.read()
         stream = zlib.decompress(data)
         with open ("tarfile.tar", "ab") as e:
             e.write(stream)
         continue
         e.close()
-    
